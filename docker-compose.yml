@@ -1,0 +1,38 @@
+version: '3.9'
+
+services:
+  django_app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: url_shortener_django
+    container_name: url_shortener_django_app
+    command: python manage.py runserver 0.0.0.0:8000
+    volumes:
+      - .:/app
+    ports:
+      - "8000:8000"
+    environment:
+      - DEBUG=True
+      - DJANGO_ALLOWED_HOSTS=*
+      - POSTGRES_DB=net_utils
+      - POSTGRES_USER=net_utils
+      - POSTGRES_PASSWORD=avantask@123
+      - POSTGRES_HOST=db
+    depends_on:
+      - db
+
+  db:
+    image: postgres:latest
+    container_name: url_shortener_db
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_DB=net_utils
+      - POSTGRES_USER=net_utils
+      - POSTGRES_PASSWORD=avantask@123
+
+volumes:
+  postgres_data:
