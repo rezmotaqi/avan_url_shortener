@@ -37,6 +37,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'url_shortener_app',
+    'rest_framework.authtoken'
+
 ]
 
 
@@ -72,8 +74,9 @@ WSGI_APPLICATION = 'url_shortener_project.wsgi.application'
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
-        'rest_framework.authentication.BasicAuthentication',
-        'rest_framework.authentication.SessionAuthentication',
+        # 'rest_framework.authentication.BasicAuthentication',
+        # 'rest_framework.authentication.SessionAuthentication',
+        'rest_framework.authentication.TokenAuthentication',
     ]
 }
 
@@ -130,4 +133,4 @@ STATIC_URL = 'static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-MAIN_DOMAIN = "yun.com/"
+MAIN_DOMAIN = "https://yun.com/" if not DEBUG else "http://127.0.0.1:8000/"

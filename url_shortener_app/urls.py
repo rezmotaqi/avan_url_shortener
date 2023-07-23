@@ -1,15 +1,13 @@
 from django.urls import path
+from rest_framework.urlpatterns import format_suffix_patterns
+
 from . import views
 
-
 urlpatterns = [
-    path("", views.add_long_url, name="Add long(original url) and get short url"),
-    path(
-        "",
-        views.get_short_url,
-        name="Redirect to original_url which is retrieved by GET request based provided short url."
-             " redirect to {main_domain}{original_url}"
-         ),
-
+    path("", views.convert_long_to_short_url),
+    path("url_redirect/<str:url>", views.redirect_to_original_url),
 ]
+
+app_name = 'url_shortener_app'
+urlpatterns = format_suffix_patterns(urlpatterns)
 

@@ -16,13 +16,16 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from rest_framework.urlpatterns import format_suffix_patterns
+from rest_framework.authtoken import views as auth_views
+
+from url_shortener_app import views
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('urls/', include("url_shortener_app.urls"))
-]
+    path("url", include("url_shortener_app.urls")),
+    path("token", auth_views.obtain_auth_token),
+    path("admin", admin.site.urls),
+    path("url_redirect/<str:url>", views.redirect_to_original_url),
 
-app_name = 'url_shortener_app'
+]
 
 
